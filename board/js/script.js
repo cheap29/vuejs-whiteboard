@@ -1,7 +1,5 @@
-(function () {
-  var app = new Vue({
-    el: '#app',
-    data: {
+
+var jsondata= {
       user: '',
       insert: '',
       update: '',
@@ -14,7 +12,17 @@
           schedule: 'テスト'
         }
       ]
-    },
+    };
+(function () {
+
+  var getjson = localStorage.getItem('scheduleData');
+  if(getjson){
+    jsondata = JSON.parse(getjson);
+  }
+
+  var app = new Vue({
+    el: '#app',
+    data: jsondata,
     methods: {
       add: function (e) {
         var form = document.getElementById('form');
@@ -26,13 +34,14 @@
         });
         this.user = '';
         this.insert = '';
+        savelocalStorage();
       },
       edit: function (item) {
         var index = this.items.indexOf(item);
         $("#edit-schedule").attr('tag',index);
         $("#edit-schedule").toggleClass('hidden');
       },
-      mod: function (item) {
+      mod: function (e) {
         var index = $("#edit-schedule").attr('tag');
         event.preventDefault();
         if (this.update == '') {
@@ -40,6 +49,7 @@
         }
         this.items[index].schedule = this.update;
         this.update = '';
+        savelocalStorage();
       },
       remove: function (item) {
         if(!confirm(item.user+' を本当に削除しますか？')){
@@ -47,7 +57,18 @@
         }        
         var index = this.items.indexOf(item);
         this.items.splice(index, 1)
+        savelocalStorage();
       }
     }
   });
 })();
+
+//ローカルストレージに保存
+function savelocalStorage(){
+  var array = [];
+  array.push(jsondata);
+
+  var setjson = JSON.stringify(jsondata);
+  localStorage.setItem('scheduleData', setjson);
+
+}
