@@ -1,0 +1,70 @@
+@charset "utf-8";
+/* CSS Document */
+
+/* basic
+-------------------------------------------*/
+@import url(http://fonts.googleapis.com/earlyaccess/notosansjp.css);
+
+html {
+  height: 100%;
+}
+
+body {
+  font-family: 'Noto Sans JP', sans-serif;
+  font-weight: 400;
+  min-height: 100%;
+  display: flex;
+  flex-direction: column;
+  background-color: #f4f2f1;
+  margin: 20px 0;
+}
+
+.hidden{
+  display: none;
+}
+
+/* bootstrap
+-------------------------------------------*/
+button.close,
+button.btn {
+  cursor: pointer;
+}
+
+/* main
+-------------------------------------------*/
+main {
+  padding-top: 20px;
+  padding-bottom: 20px;
+}
+
+.list-group-item ul {
+  padding: 0;
+  line-height: 2.5;
+}
+
+.list-group-item ul li {
+  float: left;
+  text-align: left;
+  list-style-type: none;
+}
+
+.item-user {
+  word-wrap: none;
+  word-break: keep-all;
+  text-overflow: ellipsis;
+  width: 100px;
+  border-right: 1px solid #999999;
+}
+
+.item-schedule {
+  margin-left: 20px;
+}
+
+.input-form{
+  margin: 15px 0;
+}
+
+#form .form-row .col {
+  text-align: right;
+}
+
