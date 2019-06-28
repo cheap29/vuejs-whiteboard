@@ -40,6 +40,7 @@ var jsondata= {
         var index = this.items.indexOf(item);
         $("#edit-schedule").attr('tag',index);
         $("#edit-schedule").toggleClass('hidden');
+        $('#input-schedule').attr('value',item.schedule);
       },
       mod: function (e) {
         var index = $("#edit-schedule").attr('tag');
@@ -50,6 +51,7 @@ var jsondata= {
         this.items[index].schedule = this.update;
         this.update = '';
         savelocalStorage();
+        $("#edit-schedule").toggleClass('hidden');
       },
       remove: function (item) {
         if(!confirm(item.user+' を本当に削除しますか？')){
