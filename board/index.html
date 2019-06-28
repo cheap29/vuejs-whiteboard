@@ -20,28 +20,7 @@
       <h1 class="navbar-brand mb-0">ホワイトボード</h1>
     </nav>
     <main id="app" role="main">
-
-      <!--新規登録-->
-      <div class="form-row align-items-center input-form">
-        <div class="col-auto">
-          <input type="text" class="form-control insert" v-model="user" required>
-        </div>            
-        <div class="col">
-          <input type="text" class="form-control insert" v-model="insert" >
-        </div>
-        <div class="col-auto">
-          <button type="submit" class="btn btn-success" v-on:click="add">新規登録</button>
-        </div>
-      </div>
-      <!--編集-->
-      <div class="form-row align-items-left hidden  input-form" id="edit-schedule">
-        <div class="col">
-          <input type="text" id="input-schedule" class="form-control update" v-model="update" >
-        </div>
-        <div class="col-auto">
-          <button type="button" class="btn btn-primary"  v-on:click="mod">&nbsp;&nbsp;更&nbsp;&nbsp;&nbsp;&nbsp;新&nbsp;&nbsp;</button>
-        </div>
-      </div>
+      <button type="button" class="btn btn-success btn-user-add"  v-on:click="newuser">新規登録</button>
       <!--リスト-->
       <form id="form" @submit.prevent="addItem">
         <ul class="list-group" v-if="items.length">
@@ -58,15 +37,43 @@
               </ul>
 
               <div class="col">
-                
-                <button type="button" class="btn btn-info"  v-on:click="edit(item)">編集</button>
-                <button type="submit" class="btn btn-danger" aria-label="Close"  v-on:click="remove(item)">削除</button>
+                <button type="button" class="btn btn-info btn-schedule-edit"  v-on:click="edit(item)">編集</button>
+                <button type="submit" class="btn btn-danger btn-schedule-remove" aria-label="Close"  v-on:click="remove(item)">削除</button>
               </div>                
             </div>
           </li>
         </ul>
-
       </form>
+
+      <!--固定エリア-->
+      <div id="configuration-area" class="transparent">
+        <button class="btn btn-default" id="configuration-area-close">× 閉じる</button>
+        <!--新規登録-->
+        <div class="form-row align-items-center input-form hidden" id="add-schedule">
+          <div class="col">
+            <input type="text" class="form-control insert" v-model="user" required>
+          </div>            
+          <div class="col-auto">
+            <input type="text" class="form-control insert" v-model="insert" >
+          </div>
+          <div class="col-auto">
+            <button type="submit" class="btn btn-success btn-schedule-insert" v-on:click="add">登録する</button>
+          </div>
+        </div>
+        <!--編集-->
+        <div class="form-row align-items-left hidden input-form" id="edit-schedule">
+          <div class="col">
+            <input type="text" id="input-schedule" class="form-control update" v-model="update" >
+          </div>
+          <div class="col-auto">
+            <button type="button" class="btn btn-primary btn-schedule-update" 
+             v-on:click="mod">更新する</button>
+          </div>
+        </div>
+      </div>
+      <!--固定エリア-->
+
+
     </main>
 
   </div>

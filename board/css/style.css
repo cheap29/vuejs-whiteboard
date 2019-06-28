@@ -8,7 +8,9 @@
 html {
   height: 100%;
 }
-
+.hidden{
+  display: none;
+}
 body {
   font-family: 'Noto Sans JP', sans-serif;
   font-weight: 400;
@@ -16,24 +18,31 @@ body {
   display: flex;
   flex-direction: column;
   background-color: #f4f2f1;
-  margin: 20px 0;
+  margin: 0 0 20px 0;
 }
 
-.hidden{
-  display: none;
+.navbar{
+  position: fixed;
+  left: 0;
+  top: 0;
+  width: 100vw;
+  height: 50px;
+  z-index: 2;
 }
 
 /* bootstrap
 -------------------------------------------*/
 button.close,
-button.btn {
+button.btn,
+input[type=button],
+input[type=submit] {
   cursor: pointer;
 }
 
 /* main
 -------------------------------------------*/
 main {
-  padding-top: 20px;
+  padding-top: 80px;
   padding-bottom: 20px;
 }
 
@@ -59,7 +68,6 @@ main {
 .item-schedule {
   margin-left: 20px;
 }
-
 .input-form{
   margin: 15px 0;
 }
@@ -68,3 +76,42 @@ main {
   text-align: right;
 }
 
+.btn-schedule-edit:disabled{
+  background-color: #999999;
+  border-color: #4d4c4c;
+  border-radius: 3px;
+}
+
+.btn-user-add{
+  margin: 8px 0;
+}
+
+#configuration-area{
+  position: absolute;
+  right: 0;
+  top: 80px;
+  background-color: #eeeeee;
+  border-color: #4d4c4c;
+  width: 520px;
+  min-height: 400px;
+  padding: 16px;
+  transition: 0.3s;
+  visibility: visible;
+  opacity: 1;
+  box-shadow:1px 0px 6px -4px #c8cac9 inset;
+  border-radius:6px;
+  border:1px solid #cccccc;
+}
+
+#configuration-area.transparent{
+  visibility: hidden;
+  opacity: 0;
+}
+
+#configuration-area-close{
+  border-color: #4d4c4c;
+}
+
+#configuration-area-close:hover{
+  opacity: 0.8;
+}

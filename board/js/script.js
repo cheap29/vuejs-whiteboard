@@ -24,6 +24,11 @@ var jsondata= {
     el: '#app',
     data: jsondata,
     methods: {
+      newuser: function (e) {
+        $('#edit-schedule').addClass('hidden');
+        $('#add-schedule').removeClass('hidden');
+        $('#configuration-area').toggleClass('transparent');
+      },
       add: function (e) {
         var form = document.getElementById('form');
         if (!form.checkValidity()) return;
@@ -39,19 +44,25 @@ var jsondata= {
       edit: function (item) {
         var index = this.items.indexOf(item);
         $("#edit-schedule").attr('tag',index);
-        $("#edit-schedule").toggleClass('hidden');
         $('#input-schedule').attr('value',item.schedule);
+        $('.btn-schedule-edit').attr('disabled','disabled');
+        $('#add-schedule').addClass('hidden');
+        $('#edit-schedule').removeClass('hidden');
+        $('#configuration-area').toggleClass('transparent');
       },
       mod: function (e) {
         var index = $("#edit-schedule").attr('tag');
         event.preventDefault();
         if (this.update == '') {
+          $("#edit-schedule").toggleClass('hidden');
+          $('.btn-schedule-edit').removeAttr('disabled');
           return;
         }
         this.items[index].schedule = this.update;
         this.update = '';
         savelocalStorage();
         $("#edit-schedule").toggleClass('hidden');
+        $('.btn-schedule-edit').removeAttr('disabled');
       },
       remove: function (item) {
         if(!confirm(item.user+' を本当に削除しますか？')){
@@ -63,6 +74,15 @@ var jsondata= {
       }
     }
   });
+
+
+  $('#configuration-area-close').click(function(){
+    $('#configuration-area').toggleClass('transparent');
+    $('.btn-schedule-edit').removeAttr('disabled');
+    $('#add-schedule').toggleClass('hidden');
+    $('#edit-schedule').toggleClass('hidden');
+  });
+
 })();
 
 //ローカルストレージに保存
