@@ -40,11 +40,12 @@ var jsondata= {
         this.user = '';
         this.insert = '';
         savelocalStorage();
+        location.reload();
       },
       edit: function (item) {
         var index = this.items.indexOf(item);
         $("#edit-schedule").attr('tag',index);
-        $('#input-schedule').attr('value',item.schedule);
+        $('#input-schedule').attr('value',this.items[index].schedule);
         $('.btn-schedule-edit').attr('disabled','disabled');
         $('#add-schedule').addClass('hidden');
         $('#edit-schedule').removeClass('hidden');
@@ -52,17 +53,11 @@ var jsondata= {
       },
       mod: function (e) {
         var index = $("#edit-schedule").attr('tag');
-        event.preventDefault();
-        if (this.update == '') {
-          $("#edit-schedule").toggleClass('hidden');
-          $('.btn-schedule-edit').removeAttr('disabled');
-          return;
-        }
+        e.preventDefault();
         this.items[index].schedule = this.update;
         this.update = '';
         savelocalStorage();
-        $("#edit-schedule").toggleClass('hidden');
-        $('.btn-schedule-edit').removeAttr('disabled');
+        location.reload();
       },
       remove: function (item) {
         if(!confirm(item.user+' を本当に削除しますか？')){
@@ -71,6 +66,7 @@ var jsondata= {
         var index = this.items.indexOf(item);
         this.items.splice(index, 1)
         savelocalStorage();
+        location.reload();
       }
     }
   });
