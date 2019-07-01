@@ -30,6 +30,11 @@ body {
   z-index: 2;
 }
 
+.all-reset{
+  position: fixed;
+  right: 0;
+}
+
 /* bootstrap
 -------------------------------------------*/
 button.close,
@@ -96,7 +101,7 @@ main {
 
 .btn-schedule-edit:disabled{
   background-color: #999999;
-  border-color: #4d4c4c;
+  border-color: #999999;
   border-radius: 3px;
 }
 

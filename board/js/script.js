@@ -93,3 +93,12 @@ function savelocalStorage(){
   localStorage.setItem('scheduleData', setjson);
 
 }
+
+//ローカルストレージ 全クリア
+function savelocalStorage(){
+  if(!confirm('すべてのデータを削除しますか？')){
+      return false;
+  } 
+  localStorage.removeItem('scheduleData');
+  location.reload();
+}
