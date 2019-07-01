@@ -52,9 +52,19 @@ main {
 }
 
 .list-group-item ul li {
-  float: left;
   text-align: left;
   list-style-type: none;
+  display: flex;
+  position: relative;
+}
+
+.label-mod{
+  max-width: 60vw;
+}
+
+.row-commands{
+  position: absolute;
+  right: 0;
 }
 
 .item-user {
@@ -62,6 +72,7 @@ main {
   word-break: keep-all;
   text-overflow: ellipsis;
   width: 100px;
+  min-width: 100px;
   border-right: 1px solid #999999;
 }
 
@@ -74,6 +85,13 @@ main {
 
 #form .form-row .col {
   text-align: right;
+}
+
+.user-schedule{
+  display: flex;
+  width: 70vw;
+  overflow: hidden;
+  word-wrap: normal;
 }
 
 .btn-schedule-edit:disabled{
@@ -93,7 +111,7 @@ main {
   background-color: #eeeeee;
   border-color: #4d4c4c;
   width: 520px;
-  min-height: 400px;
+  min-height: 280px;
   padding: 16px;
   transition: 0.3s;
   visibility: visible;
@@ -110,6 +128,7 @@ main {
 
 #configuration-area-close{
   border-color: #4d4c4c;
+  margin-left: 8px;
 }
 
 #configuration-area-close:hover{

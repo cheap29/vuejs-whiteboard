@@ -1,4 +1,5 @@
 
+//初期データ
 var jsondata= {
       user: '',
       insert: '',
@@ -13,7 +14,9 @@ var jsondata= {
         }
       ]
     };
+
 (function () {
+  var $jQuery = jQuery.noConflict(true);
 
   var getjson = localStorage.getItem('scheduleData');
   if(getjson){
@@ -25,9 +28,9 @@ var jsondata= {
     data: jsondata,
     methods: {
       newuser: function (e) {
-        $('#edit-schedule').addClass('hidden');
-        $('#add-schedule').removeClass('hidden');
-        $('#configuration-area').toggleClass('transparent');
+        $jQuery('#edit-schedule').addClass('hidden');
+        $jQuery('#add-schedule').removeClass('hidden');
+        $jQuery('#configuration-area').toggleClass('transparent');
       },
       add: function (e) {
         var form = document.getElementById('form');
@@ -44,15 +47,15 @@ var jsondata= {
       },
       edit: function (item) {
         var index = this.items.indexOf(item);
-        $("#edit-schedule").attr('tag',index);
-        $('#input-schedule').attr('value',this.items[index].schedule);
-        $('.btn-schedule-edit').attr('disabled','disabled');
-        $('#add-schedule').addClass('hidden');
-        $('#edit-schedule').removeClass('hidden');
-        $('#configuration-area').toggleClass('transparent');
+        $jQuery("#edit-schedule").attr('tag',index);
+        $jQuery('#input-schedule').attr('value',this.items[index].schedule);
+        $jQuery('.btn-schedule-edit').attr('disabled','disabled');
+        $jQuery('#add-schedule').addClass('hidden');
+        $jQuery('#edit-schedule').removeClass('hidden');
+        $jQuery('#configuration-area').toggleClass('transparent');
       },
       mod: function (e) {
-        var index = $("#edit-schedule").attr('tag');
+        var index = $jQuery("#edit-schedule").attr('tag');
         e.preventDefault();
         this.items[index].schedule = this.update;
         this.update = '';
@@ -72,11 +75,11 @@ var jsondata= {
   });
 
 
-  $('#configuration-area-close').click(function(){
-    $('#configuration-area').toggleClass('transparent');
-    $('.btn-schedule-edit').removeAttr('disabled');
-    $('#add-schedule').toggleClass('hidden');
-    $('#edit-schedule').toggleClass('hidden');
+  $jQuery('#configuration-area-close').click(function(){
+    $jQuery('#configuration-area').toggleClass('transparent');
+    $jQuery('.btn-schedule-edit').removeAttr('disabled');
+    $jQuery('#add-schedule').toggleClass('hidden');
+    $jQuery('#edit-schedule').toggleClass('hidden');
   });
 
 })();
