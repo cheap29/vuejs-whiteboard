@@ -95,7 +95,7 @@ function savelocalStorage(){
 }
 
 //ローカルストレージ 全クリア
-function savelocalStorage(){
+function clearlocalStorage(){
   if(!confirm('すべてのデータを削除しますか？')){
       return false;
   } 
