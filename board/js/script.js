@@ -18,6 +18,9 @@ var jsondata= {
 (function () {
   var $jQuery = jQuery.noConflict(true);
 
+  var admin = getParam('admin');
+
+
   var getjson = localStorage.getItem('scheduleData');
   if(getjson){
     jsondata = JSON.parse(getjson);
@@ -73,7 +76,18 @@ var jsondata= {
       }
     }
   });
-
+  Vue.nextTick(function () {
+    var now = new Date();
+    var doday = now.getFullYear()+'/'+
+                  ( "0"+( now.getMonth()+1 ) ).slice(-2)+'/'+
+                  ( "0"+now.getDate() ).slice(-2);
+    $jQuery('#today-date').html('今日：' + doday);
+    if(admin!=1){
+      $jQuery('.btn-schedule-remove').addClass('hidden');
+      $jQuery('.btn-user-add').addClass('hidden');
+      $jQuery('.all-reset').addClass('hidden');      
+    }
+  })
 
   $jQuery('#configuration-area-close').click(function(){
     $jQuery('#configuration-area').toggleClass('transparent');
@@ -81,6 +95,7 @@ var jsondata= {
     $jQuery('#add-schedule').toggleClass('hidden');
     $jQuery('#edit-schedule').toggleClass('hidden');
   });
+
 
 })();
 
@@ -101,4 +116,20 @@ function clearlocalStorage(){
   } 
   localStorage.removeItem('scheduleData');
   location.reload();
+}
+
+/**
+ * Get the URL parameter value
+ *
+ * @param  name {string} パラメータのキー文字列
+ * @return  url {url} 対象のURL文字列（任意）
+ */
+function getParam(name, url) {
+    if (!url) url = window.location.href;
+    name = name.replace(/[\[\]]/g, "\\$&");
+    var regex = new RegExp("[?&]" + name + "(=([^&#]*)|&|#|$)"),
+        results = regex.exec(url);
+    if (!results) return null;
+    if (!results[2]) return '';
+    return decodeURIComponent(results[2].replace(/\+/g, " "));
 }
