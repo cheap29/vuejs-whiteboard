@@ -1,25 +1,8 @@
 
-//初期データ
-var jsondata= {
-      user: '',
-      insert: '',
-      update: '',
-      items: [{
-          user: '山田',
-          schedule: 'テスト'
-        },
-        {
-          user: '山田２',
-          schedule: 'テスト'
-        }
-      ]
-    };
 
 (function () {
   var $jQuery = jQuery.noConflict(true);
-
   var admin = getParam('admin');
-
 
   var getjson = localStorage.getItem('scheduleData');
   if(getjson){
@@ -39,6 +22,7 @@ var jsondata= {
         var form = document.getElementById('form');
         if (!form.checkValidity()) return;
         e.preventDefault();
+        insert_db(this.user,this.schedule);
         this.items.push({
           user: this.user, 
           schedule: this.insert
@@ -82,10 +66,12 @@ var jsondata= {
                   ( "0"+( now.getMonth()+1 ) ).slice(-2)+'/'+
                   ( "0"+now.getDate() ).slice(-2);
     $jQuery('#today-date').html('今日：' + doday);
+    $jQuery('.roll-admin').html('ユーザー');  
     if(admin!=1){
       $jQuery('.btn-schedule-remove').addClass('hidden');
       $jQuery('.btn-user-add').addClass('hidden');
       $jQuery('.all-reset').addClass('hidden');      
+      $jQuery('.roll-admin').html('管理者');  
     }
   })
 
@@ -98,6 +84,16 @@ var jsondata= {
 
 
 })();
+
+//管理者モード
+function changeAdmin(){
+  var admin = getParam('admin');
+  if(admin!=1){
+    document.location.href="./index.html?admin=1";
+  }else{
+    document.location.href="./";
+  }
+}
 
 //ローカルストレージに保存
 function savelocalStorage(){
@@ -133,3 +129,15 @@ function getParam(name, url) {
     if (!results[2]) return '';
     return decodeURIComponent(results[2].replace(/\+/g, " "));
 }
+
+function insert_db(name, schedule){
+  var sqlite3 = require('sqlite3');
+  var db = new sqlite3.Database('./whiteboard.sqlite3');
+  db.serialize(function () {
+      var stmt = db.prepare('INSERT INTO t_master values("username","schedule") VALUES ("'+name+'","'+schedule+'");');
+      stmt.finalize();
+  })
+  db.close();
+
+  //select(undefined);
+};

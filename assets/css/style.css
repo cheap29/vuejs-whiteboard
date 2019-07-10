@@ -21,6 +21,10 @@ body {
   margin: 0 0 20px 0;
 }
 
+footer{
+  
+}
+
 .navbar{
   position: fixed;
   left: 0;
@@ -30,7 +34,7 @@ body {
   z-index: 2;
 }
 
-.all-reset{
+.all-reset,.roll-admin,.roll-user{
   position: fixed;
   right: 0;
 }
@@ -73,10 +77,10 @@ main {
 }
 
 .item-user {
-  word-wrap: none;
   word-break: keep-all;
   text-overflow: ellipsis;
-  width: 100px;
+  overflow: hidden;
+  width: 120px;
   min-width: 100px;
   border-right: 1px solid #999999;
 }
