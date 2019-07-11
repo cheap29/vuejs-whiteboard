@@ -1,6 +1,4 @@
 
-//var sqlite3 = require('sqlite3');
-
 //管理者モード
 window.changeAdmin = function(){
   var admin = getParam('admin');
@@ -36,7 +34,7 @@ window.clearlocalStorage = function(){
  * @param  name {string} パラメータのキー文字列
  * @return  url {url} 対象のURL文字列（任意）
  */
-window.getParam = function(name, url) {
+function getParam(name, url) {
     if (!url) url = window.location.href;
     name = name.replace(/[\[\]]/g, "\\$&");
     var regex = new RegExp("[?&]" + name + "(=([^&#]*)|&|#|$)"),
@@ -45,17 +43,6 @@ window.getParam = function(name, url) {
     if (!results[2]) return '';
     return decodeURIComponent(results[2].replace(/\+/g, " "));
 }
-
-window.insert_db = function(name, schedule){
-  var db = new sqlite3.Database('./whiteboard.sqlite3');
-  db.serialize(function () {
-      var stmt = db.prepare('INSERT INTO t_master values("username","schedule") VALUES ("'+name+'","'+schedule+'");');
-      stmt.finalize();
-  })
-  db.close();
-
-  //select(undefined);
-};
 
 
 (function () {
@@ -80,7 +67,6 @@ window.insert_db = function(name, schedule){
         var form = document.getElementById('form');
         if (!form.checkValidity()) return;
         e.preventDefault();
-        //insert_db(this.user,this.schedule);
         this.items.push({
           user: this.user, 
           schedule: this.insert
