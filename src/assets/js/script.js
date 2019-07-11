@@ -1,25 +1,53 @@
 
-//初期データ
-var jsondata= {
-      user: '',
-      insert: '',
-      update: '',
-      items: [{
-          user: '山田',
-          schedule: 'テスト'
-        },
-        {
-          user: '山田２',
-          schedule: 'テスト'
-        }
-      ]
-    };
+//管理者モード
+window.changeAdmin = function(){
+  var admin = getParam('admin');
+  if(admin!=1){
+    document.location.href="./index.html?admin=1";
+  }else{
+    document.location.href="./";
+  }
+}
+
+//ローカルストレージに保存
+window.savelocalStorage = function(){
+  var array = [];
+  array.push(jsondata);
+
+  var setjson = JSON.stringify(jsondata);
+  localStorage.setItem('scheduleData', setjson);
+
+}
+
+//ローカルストレージ 全クリア
+window.clearlocalStorage = function(){
+  if(!confirm('すべてのデータを削除しますか？')){
+      return false;
+  } 
+  localStorage.removeItem('scheduleData');
+  location.reload();
+}
+
+/**
+ * Get the URL parameter value
+ *
+ * @param  name {string} パラメータのキー文字列
+ * @return  url {url} 対象のURL文字列（任意）
+ */
+function getParam(name, url) {
+    if (!url) url = window.location.href;
+    name = name.replace(/[\[\]]/g, "\\$&");
+    var regex = new RegExp("[?&]" + name + "(=([^&#]*)|&|#|$)"),
+        results = regex.exec(url);
+    if (!results) return null;
+    if (!results[2]) return '';
+    return decodeURIComponent(results[2].replace(/\+/g, " "));
+}
+
 
 (function () {
   var $jQuery = jQuery.noConflict(true);
-
   var admin = getParam('admin');
-
 
   var getjson = localStorage.getItem('scheduleData');
   if(getjson){
@@ -82,10 +110,12 @@ var jsondata= {
                   ( "0"+( now.getMonth()+1 ) ).slice(-2)+'/'+
                   ( "0"+now.getDate() ).slice(-2);
     $jQuery('#today-date').html('今日：' + doday);
+    $jQuery('.roll-admin').html('ユーザー');  
     if(admin!=1){
       $jQuery('.btn-schedule-remove').addClass('hidden');
       $jQuery('.btn-user-add').addClass('hidden');
       $jQuery('.all-reset').addClass('hidden');      
+      $jQuery('.roll-admin').html('管理者');  
     }
   })
 
@@ -98,38 +128,3 @@ var jsondata= {
 
 
 })();
-
-//ローカルストレージに保存
-function savelocalStorage(){
-  var array = [];
-  array.push(jsondata);
-
-  var setjson = JSON.stringify(jsondata);
-  localStorage.setItem('scheduleData', setjson);
-
-}
-
-//ローカルストレージ 全クリア
-function clearlocalStorage(){
-  if(!confirm('すべてのデータを削除しますか？')){
-      return false;
-  } 
-  localStorage.removeItem('scheduleData');
-  location.reload();
-}
-
-/**
- * Get the URL parameter value
- *
- * @param  name {string} パラメータのキー文字列
- * @return  url {url} 対象のURL文字列（任意）
- */
-function getParam(name, url) {
-    if (!url) url = window.location.href;
-    name = name.replace(/[\[\]]/g, "\\$&");
-    var regex = new RegExp("[?&]" + name + "(=([^&#]*)|&|#|$)"),
-        results = regex.exec(url);
-    if (!results) return null;
-    if (!results[2]) return '';
-    return decodeURIComponent(results[2].replace(/\+/g, " "));
-}
